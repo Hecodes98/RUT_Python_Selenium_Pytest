@@ -11,9 +11,17 @@ class HomePage:
         self.menu_button = (By.XPATH, "//app-header/mat-toolbar[1]/div[1]/div[1]/div[1]/button[1]")
         self.search_information = (By.XPATH, "(//span[@class='mat-list-item-content'])[2]")
         self.administration_menu_option = (By.XPATH, "(//span[@class='mat-list-item-content'])[3]")
+        self.courses_menu_option = (By.XPATH, "(//span[@class='mat-list-item-content'])[4]")
         self.violations = (By.CSS_SELECTOR, "a[href='#/ciascursos/infraccion/consulta-establecimiento']")
         self.organizations = (By.CSS_SELECTOR, "a[href='#/ciasconsultas/organismos/sin-cursos-comparendos']")
+        self.instructor = (By.CSS_SELECTOR, "a[href='#/ciascursos/instructor/consulta']")
         self.administration_organizations_button = (By.CSS_SELECTOR, "a[href='#/ciascursos/establecimiento/administracion']")
+        self.scheduling_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/cursos/agenda']")
+        self.attendee_registration_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/asistentes/asistentes-cursos']")
+        self.attendance_cancellation_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/cursos/agenda']")
+        self.income_register_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/cursos/agenda'")
+        self.outcome_register_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/cursos/agenda'")
+
 
     def click_logout(self):
         # Esperar a que el botón de cierre de sesión esté presente y sea visible en la página
@@ -52,6 +60,12 @@ class HomePage:
             EC.element_to_be_clickable(self.organizations)
         )
         organization_element.click()
+
+    def click_instructor_administration_option(self):
+        instructor_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.instructor)
+        )
+        instructor_element.click()
 
     def click_administration_organizations_button(self):
         administration_organization_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(

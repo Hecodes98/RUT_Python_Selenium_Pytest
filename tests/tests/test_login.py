@@ -1,8 +1,10 @@
-import time
 from selenium.webdriver.common.by import By
 from Utils.page_factory import PageFactory
 from pywinauto.application import Application
 from config import BASE_URL
+
+import time
+import pytest
 
 class TestLoginAndRegistration:
     def test_login(self, driver):
@@ -68,6 +70,23 @@ class TestLoginAndRegistration:
         
 
         time.sleep(10)
+    @pytest.mark.parametrize("username, password", [("404477901", "1qazxsw2."), ("404477902", "1qazxsw2."), 
+                                                      ("404477904", "1qazxsw2."), ("404477905", "1qazxsw2."),
+                                                      ("404477903", "1qazxsw2.")])
+    def test_fill_textboxes_for_instructor_page(self,driver,username,password):
+        login_page = PageFactory.create_page(driver, "login")
+        driver.get(BASE_URL)
+        login_page.fill_inputs_and_click_login(username, password)
+        home_page = PageFactory.create_page(driver, "home")
+        home_page.click_menu_button()
+        home_page.click_administration_menu_option()
+        home_page.click_instructor_administration_option()
+        time.sleep(10)
+        instructor_page = PageFactory.create_page(driver, "instructor_page")
+        instructor_page.click_document_type_select_input()
+        instructor_page.click_cc_option()
+        instructor_page.fill_document_type_textbox("99887766")
+
 
 
     

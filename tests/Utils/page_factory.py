@@ -3,6 +3,8 @@ from pages.home_page import HomePage
 from pages.search_information_page import SearchInformationPage
 from pages.organizations_page import OrganizationsPage
 from pages.facility_manager import FacilityManagerPage
+from pages.instructor_page import InstructorPage
+
 
 class PageFactory:
     @staticmethod
@@ -17,5 +19,7 @@ class PageFactory:
             return OrganizationsPage(driver)
         elif page_name == "facility_manager":
             return FacilityManagerPage(driver)
+        elif page_name == "instructor_page":
+            return InstructorPage(driver)
         else:
             raise ValueError("Page not found: " + page_name)
