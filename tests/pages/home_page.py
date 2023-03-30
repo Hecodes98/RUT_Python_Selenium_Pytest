@@ -10,8 +10,10 @@ class HomePage:
         self.logout_button = (By.CSS_SELECTOR, "div.container-buttons-home div[routerlink='auth/login'] button")
         self.menu_button = (By.XPATH, "//app-header/mat-toolbar[1]/div[1]/div[1]/div[1]/button[1]")
         self.search_information = (By.XPATH, "(//span[@class='mat-list-item-content'])[2]")
+        self.administration_menu_option = (By.XPATH, "(//span[@class='mat-list-item-content'])[3]")
         self.violations = (By.CSS_SELECTOR, "a[href='#/ciascursos/infraccion/consulta-establecimiento']")
         self.organizations = (By.CSS_SELECTOR, "a[href='#/ciasconsultas/organismos/sin-cursos-comparendos']")
+        self.administration_organizations_button = (By.CSS_SELECTOR, "a[href='#/ciascursos/establecimiento/administracion']")
 
     def click_logout(self):
         # Esperar a que el botón de cierre de sesión esté presente y sea visible en la página
@@ -32,6 +34,12 @@ class HomePage:
             EC.presence_of_element_located(self.search_information)
         )
         search_information_element.click()
+
+    def click_administration_menu_option(self):
+        administration_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.presence_of_element_located(self.administration_menu_option)
+        )
+        administration_element.click()
     
     def click_violations_option(self):
         violation_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
@@ -44,3 +52,9 @@ class HomePage:
             EC.element_to_be_clickable(self.organizations)
         )
         organization_element.click()
+
+    def click_administration_organizations_button(self):
+        administration_organization_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.administration_organizations_button)
+        )
+        administration_organization_element.click()
