@@ -1,10 +1,13 @@
 from selenium.webdriver.common.by import By
 from Utils.page_factory import PageFactory
+from Utils.signature_process import SignatureProcess
 from pywinauto.application import Application
 from config import BASE_URL
-
-import time
+from pytest_check import check
+from assertpy import assert_that
 import pytest
+import time
+
 
 class TestLoginAndRegistration:
     def test_login(self, driver):
@@ -64,12 +67,11 @@ class TestLoginAndRegistration:
         facility_manager.click_save_button()
         facility_manager.click_accept_modal_button_twice()
         time.sleep(5)
-        app = Application().connect(title="Certificados")
-        top_window = app.window(title_re="Certificados", visible_only=False)
-        top_window.restore().set_focus()
-        
+        signaturate_process = SignatureProcess()
+        signaturate_process.signature_process()
+        facility_manager.click_save_modal_button()
 
-        time.sleep(10)
+    """  
     @pytest.mark.parametrize("username, password", [("404477901", "1qazxsw2."), ("404477902", "1qazxsw2."), 
                                                       ("404477904", "1qazxsw2."), ("404477905", "1qazxsw2."),
                                                       ("404477903", "1qazxsw2.")])
@@ -86,6 +88,38 @@ class TestLoginAndRegistration:
         instructor_page.click_document_type_select_input()
         instructor_page.click_cc_option()
         instructor_page.fill_document_type_textbox("99887766")
+    """
+
+    #TODO Make teh restant asserts
+
+    @pytest.mark.parametrize("username, password, document_number", [("404477901", "1qazxsw2.","12345678")])
+    def test_attendee_registration_page(self,driver, username, password, document_number):
+        """
+        Verifica que se puede hacer login exitosamente con credenciales válidas.
+        """
+        login_page = PageFactory.create_page(driver, "login")
+        driver.get(BASE_URL)
+        login_page.fill_inputs_and_click_login(username, password)
+        home_page = PageFactory.create_page(driver, "home")
+        home_page.click_menu_button()
+        home_page.click_courses_menu_option()
+        home_page.click_attendee_registration_menu_option()
+        assistant_registration_page = PageFactory.create_page(driver, "assistant_registration")
+        assistant_registration_page.click_accept_modal_button()
+        assistant_registration_page.click_document_type_select_input()
+        assistant_registration_page.click_cc_option()
+        assistant_registration_page.fill_document_number_textbox(document_number)
+        assistant_registration_page.click_consult_button()
+        time.sleep(5)
+        assistant_registration_page.click_record_violation_button()
+        assistant_registration_page.click_search_ticket_number_button()
+        print(assistant_registration_page.verify_error_message())
+        with check:
+            assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("- Número Comparendo es obligatorio") 
+
+        
+        time.sleep(10)
+
 
 
 

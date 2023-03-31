@@ -72,3 +72,15 @@ class HomePage:
             EC.element_to_be_clickable(self.administration_organizations_button)
         )
         administration_organization_element.click()
+    
+    def click_courses_menu_option(self):
+        courses_menu_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.courses_menu_option)
+        )
+        courses_menu_element.click()
+
+    def click_attendee_registration_menu_option(self):
+        attendee_registration_menu_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.attendee_registration_menu_option)
+        )
+        attendee_registration_menu_element.click()

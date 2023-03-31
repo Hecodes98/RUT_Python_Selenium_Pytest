@@ -14,6 +14,7 @@ class FacilityManagerPage:
         self.capacity_textbox = (By.CSS_SELECTOR, "input#mat-input-2")
         self.save_button = (By.XPATH, "//span[contains(text(),'Guardar')]")
         self.accept_modal_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
+        self.save_modal_button = (By.XPATH, "//span[contains(text(),'Guardar')]")
 
 
 
@@ -56,3 +57,9 @@ class FacilityManagerPage:
             EC.element_to_be_clickable(self.accept_modal_button)
         )
         accept_modal_button_element.click()
+
+    def click_save_modal_button(self):
+        save_modal_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.save_modal_button)
+        )
+        save_modal_element.click()

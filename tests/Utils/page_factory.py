@@ -4,6 +4,7 @@ from pages.search_information_page import SearchInformationPage
 from pages.organizations_page import OrganizationsPage
 from pages.facility_manager import FacilityManagerPage
 from pages.instructor_page import InstructorPage
+from pages.assistant_registration import AssistantRegistrationPage
 
 
 class PageFactory:
@@ -21,5 +22,7 @@ class PageFactory:
             return FacilityManagerPage(driver)
         elif page_name == "instructor_page":
             return InstructorPage(driver)
+        elif page_name == "assistant_registration":
+            return AssistantRegistrationPage(driver)
         else:
             raise ValueError("Page not found: " + page_name)
