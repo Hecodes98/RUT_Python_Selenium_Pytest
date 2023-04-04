@@ -1,8 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import TimeoutException
+from Utils.date_generator import DateGenerator
+
 from config import TIME_SECONDS_UNIT
+
+import time
 
 class OrganizationsPage:
     def __init__(self, driver):
@@ -14,6 +18,7 @@ class OrganizationsPage:
         self.document_number_textbox = (By.ID, "mat-input-1")
         self.commercial_registration_number_textbox = (By.ID, "mat-input-2")
         self.search_button = (By.XPATH, "//span[contains(text(),'Buscar')]")
+        self.accept_modal_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
 
 
     def click_organization_type_input(self):
@@ -32,7 +37,6 @@ class OrganizationsPage:
         )
 
         organization_CEA_type_element.click()
-        print("pase")
 
     def click_document_type_and_select_cc(self):
         # Esperar a que el botón de cierre de sesión esté presente y sea visible en la página
@@ -41,13 +45,22 @@ class OrganizationsPage:
         )
         # Esperar hasta que el elemento sea visible en la página
         element.click()
-
         cc_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
             EC.element_to_be_clickable(self.document_type_cc)
         )
 
         cc_element.click()
-        print("pase")
+        time.sleep(5) #TODO: Helper momentaneo, buscar una solución más efectiva para el tiempo de desaparición del input select dropdown
+
+    def get_today_day_input(self):
+        try:
+            self.today_formatted_date = (By.CSS_SELECTOR, f"input[max='{DateGenerator.get_date_minus_parameter_days()}']")
+            element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+                EC.presence_of_element_located(self.today_formatted_date)
+            )
+            return element.get_attribute('max')
+        except TimeoutException:
+            return None
 
     def send_document_number(self, document_number):
         document_number_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
@@ -65,5 +78,11 @@ class OrganizationsPage:
         search_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
             EC.element_to_be_clickable(self.search_button)
         )
-        self.driver.execute_script("arguments[0].scrollIntoView();", search_button_element)
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", search_button_element)
         search_button_element.click()
+
+    def click_accept_button(self):
+        accept_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.search_button)
+        )
+        accept_button_element.click()

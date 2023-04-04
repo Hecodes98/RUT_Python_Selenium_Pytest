@@ -1,0 +1,12 @@
+from datetime import date, timedelta
+from config import DAYS_AGO
+
+class DateGenerator:
+    @staticmethod
+    def get_today_formatted_date():
+        today_date = date.today()
+        return today_date.strftime('%Y-%m-%d')
+    
+    @staticmethod
+    def get_date_minus_parameter_days():
+        return (date.today() - timedelta(days=DAYS_AGO)).strftime("%Y-%m-%d")

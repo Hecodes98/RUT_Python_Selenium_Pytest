@@ -20,7 +20,7 @@ class AssistantRegistrationPage:
         self.record_violation = (By.XPATH, "//span[contains(text(),'Registrar Infracción')]")
         self.infraction_error_message = (By.XPATH, "//body[1]/div[1]/div[2]/div[1]/mat-dialog-container[1]/ciasmr-app-registro-infraccion[1]/div[1]/form[1]/div[2]/div[1]/mat-form-field[1]/div[1]/div[2]/div[1]/mat-error[1]")
         self.modal_error_message = (By.XPATH, "//body[1]/div[3]/div[1]/div[2]")
-        self.accept_modal_button = (By.XPATH, "//body[1]/div[3]/div[1]/div[6]/button[1]")
+        self.accept_modal_button_ticket_already_exist = (By.XPATH, "//body[1]/div[3]/div[1]/div[6]/button[1]")
 
 
     def click_accept_modal_button(self):
@@ -65,8 +65,7 @@ class AssistantRegistrationPage:
         search_ticket_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
             EC.element_to_be_clickable(self.search_ticket_number)
         )
-        actions = ActionChains(self.driver)
-        actions.double_click(search_ticket_element).perform()
+        search_ticket_element.click()
 
 
     def click_record_violation_button(self):
@@ -109,9 +108,9 @@ class AssistantRegistrationPage:
         except TimeoutException:
             return "There's no error message"
     
-    def click_accept_modal_button(self):
+    def click_accept_modal_button_ticket_already_exist(self):
         accept_modal_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.accept_modal_button)
+            EC.element_to_be_clickable(self.accept_modal_button_ticket_already_exist)
         )
         accept_modal_element.click()
 
