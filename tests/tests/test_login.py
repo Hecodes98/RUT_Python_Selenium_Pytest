@@ -90,13 +90,7 @@ class TestLoginAndRegistration:
         instructor_page.fill_document_type_textbox("99887766")
     """
 
-    #TODO Make teh restant asserts
-
-    @pytest.mark.parametrize("username, password, document_number", [("404477901", "1qazxsw2.","12345678")])
-    def test_attendee_registration_page(self,driver, username, password, document_number):
-        """
-        Verifica que se puede hacer login exitosamente con credenciales válidas.
-        """
+    def prueba(self, driver, username, password, document_number, ticket_number ,assistant_registration_page):
         login_page = PageFactory.create_page(driver, "login")
         driver.get(BASE_URL)
         login_page.fill_inputs_and_click_login(username, password)
@@ -104,24 +98,87 @@ class TestLoginAndRegistration:
         home_page.click_menu_button()
         home_page.click_courses_menu_option()
         home_page.click_attendee_registration_menu_option()
-        assistant_registration_page = PageFactory.create_page(driver, "assistant_registration")
         assistant_registration_page.click_accept_modal_button()
         assistant_registration_page.click_document_type_select_input()
         assistant_registration_page.click_cc_option()
         assistant_registration_page.fill_document_number_textbox(document_number)
         assistant_registration_page.click_consult_button()
-        time.sleep(5)
         assistant_registration_page.click_record_violation_button()
+        assistant_registration_page.fill_ticket_number_textbox(ticket_number)
+        time.sleep(5) #Botón buscar numero de comparendo, cuenta con un retraso propio de la página web, 
+        #por eso se usa time.sleep(5) para este caso en especial, al quitar este time.sleep retorna error, que sería el comportamiento esperado
         assistant_registration_page.click_search_ticket_number_button()
-        print(assistant_registration_page.verify_error_message())
+        
+
+    @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "")])
+    def test_attendee_registration_page_no_data_input(self,driver, username, password, document_number, ticket_number):
+        """
+        Verifica que se puede hacer login exitosamente con credenciales válidas.
+        """
+        assistant_registration_page = PageFactory.create_page(driver, "assistant_registration")
+        self.prueba(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("- Número Comparendo es obligatorio") 
-
-        
-        time.sleep(10)
-
-
-
-
     
+        time.sleep(5)  
+
+    @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "12345")])
+    def test_attendee_registration_page_wrong_data_input(self,driver, username, password, ticket_number, document_number):
+        """
+        Verifica que se puede hacer login exitosamente con credenciales válidas.
+        """
+        assistant_registration_page = PageFactory.create_page(driver, "assistant_registration")
+        self.prueba(driver, username, password, document_number, ticket_number, assistant_registration_page)
+        with check:
+            assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("- 'Número Comparendo' no cumple con el formato requerido") 
+    
+        time.sleep(5)  
+    
+    @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "12345678901234567890")])
+    def test_attendee_registration_page_right_data_input(self,driver, username, password, ticket_number, document_number):
+        """
+        Verifica que se puede hacer login exitosamente con credenciales válidas.
+        """
+        assistant_registration_page = PageFactory.create_page(driver, "assistant_registration")
+        self.prueba(driver, username, password, document_number, ticket_number, assistant_registration_page)
+        with check:
+            assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("There's no error message") 
+
+        with check:
+            assert_that(assistant_registration_page.verify_infraction_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("There's no error message") 
+
+        time.sleep(5)  
+    
+    @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "17345678901254267690")])
+    def test_attendee_registration_page_inexistent_data_input(self,driver, username, password, ticket_number, document_number):
+        """
+        Verifica que se puede hacer login exitosamente con credenciales válidas.
+        """
+        assistant_registration_page = PageFactory.create_page(driver, "assistant_registration")
+        self.prueba(driver, username, password, document_number, ticket_number, assistant_registration_page)
+        with check:
+            assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("There's no error message") 
+
+        with check:
+            assert_that(assistant_registration_page.verify_infraction_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("- Infracción es obligatorio") 
+
+        time.sleep(5) 
+
+    @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "76364000000021299635")])
+    def test_attendee_registration_page_ticket_already_register(self,driver, username, password, ticket_number, document_number):
+        """
+        Verifica que se puede hacer login exitosamente con credenciales válidas.
+        """
+        assistant_registration_page = PageFactory.create_page(driver, "assistant_registration")
+        self.prueba(driver, username, password, document_number, ticket_number, assistant_registration_page)
+        with check:
+            assert_that(assistant_registration_page.verify_modal_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("El comparendo tiene asociado un curso") 
+
+        assistant_registration_page.click_accept_modal_button()
+
+        time.sleep(5) 
+        
+
+#El comparendo tiene asociado un curso
+
 
