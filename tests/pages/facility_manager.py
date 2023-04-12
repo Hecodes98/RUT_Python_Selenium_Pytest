@@ -17,7 +17,6 @@ class FacilityManagerPage:
         self.save_modal_button = (By.XPATH, "//span[contains(text(),'Guardar')]")
 
 
-
     def click_accept_button_for_close_error_modal(self):
         close_modal = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
             EC.element_to_be_clickable(self.close_error_button)

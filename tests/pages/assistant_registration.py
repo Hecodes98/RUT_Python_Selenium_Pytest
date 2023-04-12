@@ -15,12 +15,21 @@ class AssistantRegistrationPage:
         self.document_number_textbox = (By.ID, "mat-input-0")
         self.consult_button = (By.XPATH, "//span[contains(text(),'Consultar')]")
         self.ticket_number_textbox = (By.ID, "mat-input-19")
+        self.ticket_number_textbox_modal_2 = (By.ID, "mat-input-22")
         self.error_message = (By.XPATH, "/html[1]/body[1]/div[1]/div[2]/div[1]/mat-dialog-container[1]/ciasmr-app-registro-infraccion[1]/div[1]/form[1]/div[1]/div[1]/mat-form-field[1]/div[1]/div[2]/div[1]/mat-error[1]")
         self.search_ticket_number = (By.XPATH, "//span[contains(text(),'Buscar comparendo')]")
         self.record_violation = (By.XPATH, "//span[contains(text(),'Registrar Infracción')]")
         self.infraction_error_message = (By.XPATH, "//body[1]/div[1]/div[2]/div[1]/mat-dialog-container[1]/ciasmr-app-registro-infraccion[1]/div[1]/form[1]/div[2]/div[1]/mat-form-field[1]/div[1]/div[2]/div[1]/mat-error[1]")
         self.modal_error_message = (By.XPATH, "//body[1]/div[3]/div[1]/div[2]")
         self.accept_modal_button_ticket_already_exist = (By.XPATH, "//body[1]/div[3]/div[1]/div[6]/button[1]")
+        self.infraction_input = (By.ID, "mat-select-8")
+        self.infraction_input_option_1 = (By.XPATH, "//span[contains(text(),'A01 - No transitar por la derecha de la vía.')]")
+        self.comparendo_date = (By.ID, "mat-input-20")
+        self.entity_input = (By.ID, "mat-select-10")
+        self.entity_input_option_1 = (By.XPATH, "//span[contains(text(),'POLCA')]")
+        self.transit_authority_input = (By.ID, "mat-input-21")
+        self.transit_authority_input_option_1 = (By.XPATH, "//span[contains(text(),'STRIA DE TTOyTTE MEDELLIN')]")
+        self.modal_button_infraction_registration = (By.XPATH, "//span[contains(text(),'Aceptar')]")
 
 
     def click_accept_modal_button(self):
@@ -81,6 +90,12 @@ class AssistantRegistrationPage:
         )
         ticket_number_element.send_keys(ticket_number)
 
+    def fill_ticket_number_textbox_modal_2(self,ticket_number):
+        ticket_number_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.ticket_number_textbox_modal_2)
+        )
+        ticket_number_element.send_keys(ticket_number)
+
     def verify_error_message(self):
         try:
             error_message_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
@@ -113,4 +128,58 @@ class AssistantRegistrationPage:
             EC.element_to_be_clickable(self.accept_modal_button_ticket_already_exist)
         )
         accept_modal_element.click()
+
+    def click_infraction_input(self):
+        infraction_input_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.infraction_input)
+        )
+        infraction_input_element.click()
+    
+    def click_infraction_input_option_1(self):
+        input_option_1_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.infraction_input_option_1)
+        )
+        input_option_1_element.click()
+    
+    def send_comparendo_date(self, date):
+        input_date_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.comparendo_date)
+        )
+        input_date_element.send_keys(date)
+    
+    def click_entity_input(self):
+        entity_input_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.entity_input)
+        )
+        entity_input_element.click()
+    
+    def click_entity_input_option_1(self):
+        entity_input_option_1_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.entity_input_option_1)
+        )
+        entity_input_option_1_element.click()
+    
+    def click_transit_authority_input(self):
+        transit_authority_input_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.transit_authority_input)
+        )
+        transit_authority_input_element.click()
+
+    def click_transit_authority_input_option_1(self):
+        transit_authority_input_option_1_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.transit_authority_input_option_1)
+        )
+        transit_authority_input_option_1_element.click()
+    
+    def click_modal_button_infraction_registration(self):
+        modal_button_infraction_registration_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.modal_button_infraction_registration)
+        )
+        modal_button_infraction_registration_element.click()
+
+    
+    
+    
+
+        
 

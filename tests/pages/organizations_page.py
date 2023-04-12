@@ -15,10 +15,12 @@ class OrganizationsPage:
         self.organization_CEA_type = (By.ID, "mat-option-2")
         self.document_type_input = (By.ID, "mat-select-2")
         self.document_type_cc = (By.ID, "mat-option-4")
+        self.document_type_nit = (By.ID, "mat-option-5")
         self.document_number_textbox = (By.ID, "mat-input-1")
         self.commercial_registration_number_textbox = (By.ID, "mat-input-2")
         self.search_button = (By.XPATH, "//span[contains(text(),'Buscar')]")
         self.accept_modal_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
+        self.clean_button = (By.XPATH, "//span[contains(text(),'Limpiar')]")
 
 
     def click_organization_type_input(self):
@@ -52,6 +54,22 @@ class OrganizationsPage:
         cc_element.click()
         time.sleep(5) #TODO: Helper momentaneo, buscar una solución más efectiva para el tiempo de desaparición del input select dropdown
 
+    def click_document_type_and_select_nit(self):
+        # Esperar a que el botón de cierre de sesión esté presente y sea visible en la página
+        element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.presence_of_element_located(self.document_type_input)
+        )
+        # Esperar hasta que el elemento sea visible en la página
+        element.click()
+        nit_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.document_type_nit)
+        )
+
+        nit_element.click()
+        time.sleep(5) #TODO: Helper momentaneo, buscar una solución más efectiva para el tiempo de desaparición del input select dropdown
+
+
+
     def get_today_day_input(self):
         try:
             self.today_formatted_date = (By.CSS_SELECTOR, f"input[max='{DateGenerator.get_date_minus_parameter_days()}']")
@@ -80,6 +98,13 @@ class OrganizationsPage:
         )
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", search_button_element)
         search_button_element.click()
+    
+    def click_clean_button(self):
+        clean_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+            EC.element_to_be_clickable(self.clean_button)
+        )
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", clean_button_element)
+        clean_button_element.click()
 
     def click_accept_button(self):
         accept_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(

@@ -10,3 +10,10 @@ class DateGenerator:
     @staticmethod
     def get_date_minus_parameter_days():
         return (date.today() - timedelta(days=DAYS_AGO)).strftime("%Y-%m-%d")
+
+    @staticmethod
+    def get_tomorrow_date():
+        today = date.today()
+        tomorrow = today + timedelta(days=1)
+        formatted_date = tomorrow.strftime("%d/%m/%y")
+        return formatted_date
