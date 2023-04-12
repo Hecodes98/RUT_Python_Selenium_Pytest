@@ -39,6 +39,10 @@ class TestNewRoomCreation:
         
     @pytest.mark.EP2_CUR01504
     def test_validate_fields(self,driver):
+        """
+        Permite al organismo encargado, observar la pantalla con información precargada  con el nombre del establecimiento del 
+        organismo de apoyo habilitado para dictar cursos comparendos al cual pertenece el funcionario autenticado así mismo como el módulo capacidad y Horario  mostrado en el prototipo A
+        """
         self.base(driver)
         facility_manager = PageFactory.create_page(driver, "facility_manager")
         facility_manager.click_accept_button_for_close_error_modal()
@@ -50,6 +54,12 @@ class TestNewRoomCreation:
 
     @pytest.mark.EP4_CUR01504
     def test_fill_textboxes_for_a_new_room_creation(self, driver):
+        """
+        Permite al organismo encargado crear y administrar una nueva sala, observando en pantalla campos de entrada para la creacion:
+        -opción capacidad, Validando la capacidad máxima permitida y parametrizada por el sistema.
+        Configurar salas.
+        Guardar: el sistema muestra el mensaje de confirmacion de registro satisfactorio.
+        """
         self.base(driver)
         facility_manager = PageFactory.create_page(driver, "facility_manager")
         facility_manager.click_accept_button_for_close_error_modal()
@@ -65,6 +75,9 @@ class TestNewRoomCreation:
     
     @pytest.mark.EP5_CUR01504
     def test_fill_textboxes_and_validate_them(self, driver):
+        """
+        Permite al organismo validar el cumplimiento de las condiciones de los campos ingresados y almacenar la información con trazabilidad en el sistema registrando el log de auditoría
+        """
         self.base(driver)
         facility_manager = PageFactory.create_page(driver, "facility_manager")
         facility_manager.click_accept_button_for_close_error_modal()
@@ -78,6 +91,10 @@ class TestNewRoomCreation:
     
     @pytest.mark.EP6_CUR01504
     def test_click_first_edit_button(self, driver):
+        """
+        Editar o eliminar la sala por el organismo autenticado seleccionando la opción Editar  permitiendo modificar la capacidad de sala, nombre, horario y aforo seleccionado, para posteriormente guardar la modificación 
+        según el prototipo B de lo contrario seleccioa la opción existente para eliminar la sala ya creada. donde se muestra un mensaje de eliminación exitosa.
+        """
         self.base(driver)
         facility_manager = PageFactory.create_page(driver, "facility_manager")
         facility_manager.click_accept_button_for_close_error_modal()
@@ -91,6 +108,9 @@ class TestNewRoomCreation:
 
     @pytest.mark.EP7_CUR01504
     def test_validate_unique_name(self, driver):
+        """
+        Permite al organismo validar los nombres de las salas y que estas no se encuentren repetidas en el sistema de ser así mostrará en pantalla el mensaje: <<ya existe una sala con el nombre de  la sala>>
+        """
         self.base(driver)
         facility_manager = PageFactory.create_page(driver, "facility_manager")
         facility_manager.click_accept_button_for_close_error_modal()
@@ -154,7 +174,7 @@ class TestNewRoomCreation:
         time.sleep(10)
 
     """
-    @pytest.mark.EP10_CUR01504 y @pytest.mark.EP11_CUR01504
+    @pytest.mark.EP10_CUR01504,@pytest.mark.EP11_CUR01504, @pytest.mark.EP12_CUR01504
     se obvean porque en test pasados se testean repeditas veces
     """
 
