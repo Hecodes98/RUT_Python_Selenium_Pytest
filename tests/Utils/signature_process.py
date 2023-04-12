@@ -1,5 +1,4 @@
 from pywinauto.application import Application
-import time
 
 class SignatureProcess:
     def __init__(self):

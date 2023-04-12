@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 from config import TIME_SECONDS_UNIT
 
 import time
@@ -19,14 +20,17 @@ class FacilityManagerPage:
 
 
     def click_accept_button_for_close_error_modal(self):
-        close_modal = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.close_error_button)
-        )
-        close_modal.click()
-    
+        try:
+            close_modal = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
+                EC.element_to_be_clickable(self.close_error_button)
+            )
+            close_modal.click()
+        except TimeoutException:
+            return None
+
     def click_new_room_button(self):
         new_room_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.presence_of_element_located(self.new_room_button)
+            EC.element_to_be_clickable(self.new_room_button)
         )
         new_room_element.click()
     
