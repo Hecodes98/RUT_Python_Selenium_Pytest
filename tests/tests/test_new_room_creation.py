@@ -11,21 +11,46 @@ import time
 
 class TestNewRoomCreation:
 
-    def test_login(self, driver):
+    def login(self, driver):
         login_page = PageFactory.create_page(driver, "login")
         driver.get(BASE_URL)
         login_page.fill_inputs_and_click_login("404477901", "1qazxsw2.")
-        time.sleep(15)
-        assert driver.current_url == "https://azspkdevstcus004.z19.web.core.windows.net/#/"
 
-    def test_fill_textboxes_for_a_new_room_creation(self, driver):
-        login_page = PageFactory.create_page(driver, "login")
-        driver.get(BASE_URL)
-        login_page.fill_inputs_and_click_login("404477901", "1qazxsw2.")
+    def base(self,driver):
+        self.login(driver)
         home_page = PageFactory.create_page(driver, "home")
         home_page.click_menu_button()
         home_page.click_administration_menu_option()
         home_page.click_administration_organizations_button()
+
+    def test_fill_textboxes_for_a_new_room_creation(self, driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_new_room_button()
+        facility_manager.fill_name_textbox("Hector Cardona")
+        facility_manager.fill_capacity_textbox("2")
+        facility_manager.click_save_button()
+        facility_manager.click_accept_modal_button_twice()
+        time.sleep(10)
+        signaturate_process = SignatureProcess()
+        signaturate_process.signature_process()
+        facility_manager.click_save_modal_button()
+        
+    @pytest.mark.EP2_CUR01504
+    def test_validate_fields(self,driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_schedule_tab()
+        time.sleep(5)
+    """
+    @pytest.mark.EP3_CUR01504 se obvea este test case ya que es el mismo de test case 'EP2_CUR01504' cuentan con una funcionalidad igual, lo que sería reescribir codigo innecesario
+    """
+
+    @pytest.mark.EP4_CUR01504
+    def test_fill_textboxes_for_a_new_room_creation(self, driver):
+        self.base(driver)
         facility_manager = PageFactory.create_page(driver, "facility_manager")
         facility_manager.click_accept_button_for_close_error_modal()
         facility_manager.click_new_room_button()
@@ -38,6 +63,130 @@ class TestNewRoomCreation:
         signaturate_process.signature_process()
         facility_manager.click_save_modal_button()
     
+    @pytest.mark.EP5_CUR01504
+    def test_fill_textboxes_and_validate_them(self, driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_new_room_button()
+        facility_manager.fill_name_textbox("Hector Cardona")
+        facility_manager.fill_capacity_textbox("cdgds")
+        facility_manager.click_save_button()
+        with check:
+            assert_that(facility_manager.get_capacity_error_message()).described_as("Validar que el mensaje de error no se muestre").is_true() 
+        time.sleep(5)
+    
+    @pytest.mark.EP6_CUR01504
+    def test_click_first_edit_button(self, driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_first_edit_button()
+        facility_manager.click_save_button()
+        facility_manager.click_accept_modal_button_twice()
+        time.sleep(10)
+        signaturate_process = SignatureProcess()
+        signaturate_process.signature_process()
+        facility_manager.click_save_modal_button()
+
+    @pytest.mark.EP7_CUR01504
+    def test_validate_unique_name(self, driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_new_room_button()
+        facility_manager.fill_name_textbox("Salón 1")
+        facility_manager.fill_capacity_textbox("2")
+        facility_manager.click_save_button()
+        facility_manager.click_accept_modal_button_twice()
+        time.sleep(10)
+        signaturate_process = SignatureProcess()
+        signaturate_process.signature_process()
+        facility_manager.click_save_modal_button()
+        time.sleep(10)
+    
+    @pytest.mark.EP8_CUR01504
+    def test_validate_over_quantity(self, driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_new_room_button()
+        facility_manager.fill_name_textbox("Salón 3")
+        facility_manager.fill_capacity_textbox("10")
+        facility_manager.click_save_button()
+        facility_manager.click_accept_modal_button_twice()
+        time.sleep(10)
+        signaturate_process = SignatureProcess()
+        signaturate_process.signature_process()
+        facility_manager.click_save_modal_button()
+        time.sleep(10)
+
+    @pytest.mark.EP9_CUR01504
+    def test_validate_overwrote_schedule(self,driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_schedule_tab()
+        facility_manager.click_new_schedule_button()
+        time.sleep(5)
+        facility_manager.click_weekly_radio_button()
+        facility_manager.click_day_select_input()
+        facility_manager.click_sunday_option()
+        facility_manager.click_init_minute_select_input()
+        facility_manager.click_init_minute_option_1()
+        facility_manager.click_init_time_select_input()
+        facility_manager.click_init_time_option_2()
+        facility_manager.click_meridian_select_input()
+        facility_manager.click_meridian_option_1()
+
+        facility_manager.click_end_minute_select_input()
+        facility_manager.click_end_minute_option_1()
+        facility_manager.click_end_time_select_input()
+        facility_manager.click_end_time_option_1()
+        facility_manager.click_end_meridian_select_input()
+        facility_manager.click_end_meridian_option_1()
+        facility_manager.click_save_button()
+        facility_manager.click_accept_modal_button_twice()
+        time.sleep(10)
+        signaturate_process = SignatureProcess()
+        signaturate_process.signature_process()
+        facility_manager.click_save_modal_button()
+        time.sleep(10)
+
+    """
+    @pytest.mark.EP10_CUR01504 y @pytest.mark.EP11_CUR01504
+    se obvean porque en test pasados se testean repeditas veces
+    """
+
+
+    def validate_fields(self,driver):
+        self.base(driver)
+        facility_manager = PageFactory.create_page(driver, "facility_manager")
+        facility_manager.click_accept_button_for_close_error_modal()
+        facility_manager.click_schedule_tab()
+        facility_manager.click_new_schedule_button()
+        time.sleep(5)
+        facility_manager.click_diary_radio_button()
+        facility_manager.click_day_select_input()
+        facility_manager.click_monday_option()
+        facility_manager.click_init_minute_select_input()
+        facility_manager.click_init_minute_option_1()
+        facility_manager.click_init_time_select_input()
+        facility_manager.click_init_time_option_1()
+        facility_manager.click_meridian_select_input()
+        facility_manager.click_meridian_option_1()
+
+        facility_manager.click_end_minute_select_input()
+        facility_manager.click_end_minute_option_1()
+        facility_manager.click_end_time_select_input()
+        facility_manager.click_end_time_option_1()
+        facility_manager.click_end_meridian_select_input()
+        facility_manager.click_end_meridian_option_1()
+        facility_manager.click_save_button()
+        
+
+
+
     #@pytest.mark.parametrize("username, password", [("404477901", "1qazxsw2.")])
     #def test_organizations_validate_parametrized_date(self,driver, username, password):
         """
