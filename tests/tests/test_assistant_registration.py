@@ -119,7 +119,7 @@ class TestAssistantRegistration:
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "17345678901254267690")])
     @pytest.mark.EP9_CUR01505
-    def test_attendee_registration_field_enable_comparendo_date(self,driver, username, password, document_number, ticket_number):
+    def test_attendee_registration_field_valid_info(self,driver, username, password, document_number, ticket_number):
         """
         Validar que la información suministrada cumpla con las condiciones descritas. Funcionario CIA.
         """
@@ -144,7 +144,7 @@ class TestAssistantRegistration:
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "17345678901254267690")])
     @pytest.mark.EP11_CUR01505
-    def test_attendee_registration_field_enable_comparendo_date(self,driver, username, password, document_number, ticket_number):
+    def test_attendee_registration_comparendo_already_exists(self,driver, username, password, document_number, ticket_number):
         """
         Validar cuando el comparendo ya esta registrado o con un curso asociado. Funcionario CIA.
         """
