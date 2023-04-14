@@ -71,6 +71,7 @@ class TestNewRoomCreation:
         time.sleep(10)
         signaturate_process = SignatureProcess()
         signaturate_process.signature_process()
+        time.sleep(10)
         facility_manager.click_save_modal_button()
     
     @pytest.mark.EP5_CUR01504

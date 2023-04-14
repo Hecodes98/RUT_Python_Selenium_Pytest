@@ -16,7 +16,7 @@ class FacilityManagerPage:
         self.capacity_textbox = (By.CSS_SELECTOR, "input#mat-input-2")
         self.save_button = (By.XPATH, "//span[contains(text(),'Guardar')]")
         self.accept_modal_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
-        self.save_modal_button = (By.XPATH, "//span[contains(text(),'Guardar')]")
+        self.save_modal_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
         self.capacity_input_error = (By.ID, "mat-error-3")
         self.first_edit_button = (By.XPATH, "//tbody/tr[1]/td[3]/button[1]/span[1]")
 
@@ -169,8 +169,6 @@ class FacilityManagerPage:
             EC.element_to_be_clickable(self.init_time_option_2)
         )
         init_time_element.click()
-    
-
 
     def click_init_minute_select_input(self):
         init_minute_select_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
