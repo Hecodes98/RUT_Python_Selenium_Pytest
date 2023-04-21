@@ -5,7 +5,6 @@ from assertpy import assert_that
 import pytest
 import time
 
-
 class TestAssistantRegistration:
     def base_test(self, driver, username, password, document_number, ticket_number ,assistant_registration_page):
         login_page = PageFactory.create_page(driver, "login")

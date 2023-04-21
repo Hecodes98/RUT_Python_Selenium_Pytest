@@ -19,6 +19,7 @@ class TestNewRoomCreation:
     def base(self,driver):
         self.login(driver)
         home_page = PageFactory.create_page(driver, "home")
+        time.sleep(20)
         home_page.click_menu_button()
         home_page.click_administration_menu_option()
         home_page.click_administration_organizations_button()
@@ -70,7 +71,7 @@ class TestNewRoomCreation:
         facility_manager.click_accept_modal_button_twice()
         time.sleep(10)
         signaturate_process = SignatureProcess()
-        signaturate_process.signature_process()
+        signaturate_process.signature_process() #TODO validate
         time.sleep(10)
         facility_manager.click_save_modal_button()
     
