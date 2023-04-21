@@ -19,7 +19,6 @@ class TestNewRoomCreation:
     def base(self,driver):
         self.login(driver)
         home_page = PageFactory.create_page(driver, "home")
-        time.sleep(20)
         home_page.click_menu_button()
         home_page.click_administration_menu_option()
         home_page.click_administration_organizations_button()
