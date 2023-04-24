@@ -70,7 +70,8 @@ class TestNewRoomCreation:
         facility_manager.click_accept_modal_button_twice()
         time.sleep(10)
         signaturate_process = SignatureProcess()
-        signaturate_process.signature_process()
+        signaturate_process.signature_process() #TODO validate
+        time.sleep(10)
         facility_manager.click_save_modal_button()
     
     @pytest.mark.EP5_CUR01504

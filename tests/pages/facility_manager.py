@@ -3,11 +3,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from config import TIME_SECONDS_UNIT
+from Utils.actions import Actions
 
 import time
 
 class FacilityManagerPage:
     def __init__(self, driver):
+        self.actions = Actions()
         self.driver = driver
         self.close_error_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
         self.new_room_button = (By.XPATH, "//span[contains(text(),'Nueva Sala')]")
@@ -16,7 +18,7 @@ class FacilityManagerPage:
         self.capacity_textbox = (By.CSS_SELECTOR, "input#mat-input-2")
         self.save_button = (By.XPATH, "//span[contains(text(),'Guardar')]")
         self.accept_modal_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
-        self.save_modal_button = (By.XPATH, "//span[contains(text(),'Guardar')]")
+        self.save_modal_button = (By.XPATH, "//button[contains(text(),'Aceptar')]")
         self.capacity_input_error = (By.ID, "mat-error-3")
         self.first_edit_button = (By.XPATH, "//tbody/tr[1]/td[3]/button[1]/span[1]")
 
@@ -46,86 +48,60 @@ class FacilityManagerPage:
 
     def click_accept_button_for_close_error_modal(self):
         try:
-            close_modal = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-                EC.element_to_be_clickable(self.close_error_button)
-            )
+            close_modal = self.actions.element_to_be_clickable(driver=self.driver, element=self.close_error_button)
             close_modal.click()
         except TimeoutException:
             return None
 
     def click_new_room_button(self):
-        new_room_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.new_room_button)
-        )
+        new_room_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.new_room_button)
         new_room_element.click()
 
     def click_schedule_tab(self):
-        schedule_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.schedule_tab)
-        )
+        schedule_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.schedule_tab)
         schedule_element.click()
 
     def click_new_schedule_button(self):
-        new_schedule_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.new_schedule_button)
-        )
+        new_schedule_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.new_schedule_button)
         new_schedule_element.click()
     
     def fill_name_textbox(self, name):
-        name_textbox_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.presence_of_element_located(self.name_textbox)
-        )
+        name_textbox_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.name_textbox)
         name_textbox_element.send_keys(name)
 
     def fill_capacity_textbox(self, capacity):
-        capacity_textbox_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.presence_of_element_located(self.capacity_textbox)
-        )
+        capacity_textbox_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.capacity_textbox)
         capacity_textbox_element.send_keys(capacity)
 
     def click_save_button(self):
-        save_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.save_button)
-        )
+        save_button_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.save_button)
         save_button_element.click()
     
     def click_accept_modal_button_twice(self):
-        accept_modal_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.accept_modal_button)
-        )
+        accept_modal_button_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.accept_modal_button)
         accept_modal_button_element.click()
-        accept_modal_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.accept_modal_button)
-        )
+        accept_modal_button_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.accept_modal_button)
         accept_modal_button_element.click()
 
     def click_save_modal_button(self):
-        save_modal_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.save_modal_button)
-        )
+        save_modal_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.save_modal_button)
         save_modal_element.click()
 
     def get_capacity_error_message(self):
         try:
-            WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-                EC.element_to_be_clickable(self.capacity_input_error)
-            )
+            self.actions.element_to_be_clickable(driver=self.driver, element=self.capacity_input_error)
             return True
         except TimeoutException:
             return False
         
     def click_first_edit_button(self):
-        first_edit_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.first_edit_button)
-        )
+        first_edit_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.first_edit_button)
         first_edit_element.click()
 
     #Schedule
 
     def click_diary_radio_button(self):
-        diary_radio_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.element_to_be_clickable(self.diary_radio_button)
-        )
+        diary_radio_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.diary_radio_button)
         diary_radio_element.click()
     
     def click_weekly_radio_button(self):
@@ -169,8 +145,6 @@ class FacilityManagerPage:
             EC.element_to_be_clickable(self.init_time_option_2)
         )
         init_time_element.click()
-    
-
 
     def click_init_minute_select_input(self):
         init_minute_select_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
