@@ -1,4 +1,5 @@
 from pywinauto.application import Application
+import time
 
 class SignatureProcess:
     def __init__(self):
@@ -21,6 +22,7 @@ class SignatureProcess:
         y_click_accept = 500        
         self.top_window.click_input(coords=(x_click_signature,y_click_signature))
         self.top_window.click_input(coords=(x_click_accept,y_click_accept))
+        time.sleep(5)
         self.setup_app(title="Se están firmando datos con su clave privada de intercambio")
         x_click_signature = 250
         y_click_signature = 150
