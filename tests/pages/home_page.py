@@ -32,9 +32,6 @@ class HomePage:
 
     def click_menu_button(self):
         # Esperar a que el botón de cierre de sesión esté presente y sea visible en la página
-        WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
-            EC.visibility_of_element_located(self.menu_button)
-        )
         menu_button_element = WebDriverWait(self.driver, TIME_SECONDS_UNIT).until(
             EC.element_to_be_clickable(self.menu_button)
         )
