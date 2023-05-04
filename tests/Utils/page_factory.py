@@ -5,6 +5,7 @@ from pages.organizations_page import OrganizationsPage
 from pages.facility_manager import FacilityManagerPage
 from pages.instructor_page import InstructorPage
 from pages.assistant_registration import AssistantRegistrationPage
+from pages.scheduling_page import SchedulingPage
 
 
 class PageFactory:
@@ -12,17 +13,19 @@ class PageFactory:
     def create_page(driver, page_name):
         if page_name == "login":
             return LoginPage(driver)
-        elif page_name == "home":
+        if page_name == "home":
             return HomePage(driver)
-        elif page_name == "search_info":
+        if page_name == "search_info":
             return SearchInformationPage(driver)
-        elif page_name == "organizations":
+        if page_name == "organizations":
             return OrganizationsPage(driver)
-        elif page_name == "facility_manager":
+        if page_name == "facility_manager":
             return FacilityManagerPage(driver)
-        elif page_name == "instructor_page":
+        if page_name == "instructor_page":
             return InstructorPage(driver)
-        elif page_name == "assistant_registration":
+        if page_name == "assistant_registration":
             return AssistantRegistrationPage(driver)
+        if page_name == "scheduling":
+            return SchedulingPage(driver)
         else:
             raise ValueError("Page not found: " + page_name)

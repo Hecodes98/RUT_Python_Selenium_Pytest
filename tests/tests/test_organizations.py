@@ -1,12 +1,13 @@
 from Utils.page_factory import PageFactory
-from config import BASE_URL
+from Utils.save_screenshots import SaveScreenshots
+from config import BASE_URL, ORGANIZATIONS_BASE
 from pytest_check import check
 from assertpy import assert_that
 import pytest
 import time
 
 
-class TestAssistantRegistration:
+class TestOrganization:
     def test_login(self, driver):
         login_page = PageFactory.create_page(driver, "login")
         driver.get(BASE_URL)
@@ -36,7 +37,7 @@ class TestAssistantRegistration:
         organizations_page.click_organization_type_input()
         with check:
             assert_that(organizations_page.get_today_day_input()).described_as("Validar que la fecha que se muestre sea igual a la fecha de hoy menos los días parametrizados").is_not_none() 
-    
+        SaveScreenshots.save_screenshot(driver, ORGANIZATIONS_BASE, "EP1_CUR01506")
         time.sleep(5)  
 
     @pytest.mark.parametrize("username, password", [("404477905", "1qazxsw2.")])
