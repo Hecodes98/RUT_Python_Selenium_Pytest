@@ -18,7 +18,7 @@ class TestScheduling:
         home_page.click_menu_button()
         home_page.click_courses_menu_option()
         home_page.click_courses_scheduling_option()
-        time.sleep(20)
+        time.sleep(15)
 
     @pytest.mark.base
     @pytest.mark.parametrize("username, password", [("404477902", "1qazxsw2.")])
@@ -232,6 +232,7 @@ class TestScheduling:
         scheduling_page = PageFactory.create_page(driver, "scheduling")
         scheduling_page.click_room_select_input()
         scheduling_page.click_room_one_option()
+        scheduling_page.click_no_courser_error_modal() 
         scheduling_page.click_day_option()
         scheduling_page.click_next_option()
         scheduling_page.scroll_top()
@@ -262,6 +263,7 @@ class TestScheduling:
         scheduling_page = PageFactory.create_page(driver, "scheduling")
         scheduling_page.click_room_select_input()
         scheduling_page.click_room_one_option()
+        scheduling_page.click_no_courser_error_modal() 
         scheduling_page.click_day_option()
         time.sleep(2)
         scheduling_page.click_next_option_until_day_is_sunday()
@@ -296,6 +298,7 @@ class TestScheduling:
         scheduling_page = PageFactory.create_page(driver, "scheduling")
         scheduling_page.click_room_select_input()
         scheduling_page.click_room_one_option()
+        scheduling_page.click_no_courser_error_modal() 
         scheduling_page.click_day_option()
         time.sleep(2)
         scheduling_page.click_next_option()

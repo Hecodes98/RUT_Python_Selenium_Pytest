@@ -30,6 +30,7 @@ class SchedulingPage:
         self.rooms_list = (By.CSS_SELECTOR, "span.mat-option-text")
         self.modal_previous_date_modal_error = (By.ID, "swal2-html-container")
         self.week_day = (By.XPATH, "//body[1]/host-runt-root[1]/app-layout[1]/app-theme-runt2[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/ng-component[1]/div[2]/div[2]/ciasmr-calendar[1]/full-calendar[1]/div[2]/div[1]/table[1]/thead[1]/tr[1]/th[1]/div[1]/div[1]/table[1]/thead[1]/tr[1]/th[2]/div[1]/a[1]")
+        self.no_courses_error_modal = (By.XPATH, "//body[1]/div[3]/div[1]/div[6]/button[1]")
 
     def click_room_select_input(self):
         select_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.room_select_input)
@@ -117,3 +118,7 @@ class SchedulingPage:
         accept_modal_button_element.click()
         accept_modal_button_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.accept_modal_button)
         accept_modal_button_element.click()
+
+    def click_no_courser_error_modal(self):
+        modal_error_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.no_courses_error_modal)
+        modal_error_element.click()
