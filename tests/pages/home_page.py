@@ -18,7 +18,7 @@ class HomePage:
         self.organizations = (By.CSS_SELECTOR, "a[href='#/ciasconsultas/organismos/sin-cursos-comparendos']")
         self.instructor = (By.CSS_SELECTOR, "a[href='#/ciascursos/instructor/consulta']")
         self.administration_organizations_button = (By.CSS_SELECTOR, "a[href='#/ciascursos/establecimiento/administracion']")
-        self.scheduling_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/cursos/agenda']")
+        self.scheduling_menu_option = (By.XPATH, "//body/host-runt-root[1]/app-layout[1]/app-theme-runt2[1]/mat-sidenav-container[1]/mat-sidenav[1]/div[1]/app-sidebar[1]/mat-nav-list[1]/app-menu-list-item[3]/div[1]/app-menu-list-item[1]/a[1]/span[1]")
         self.attendee_registration_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/asistentes/asistentes-cursos']")
         self.attendance_cancellation_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/cursos/agenda']")
         self.income_register_menu_option = (By.CSS_SELECTOR, "a[href='#/ciascursos/cursos/agenda'")
@@ -66,3 +66,7 @@ class HomePage:
     def click_attendee_registration_menu_option(self):
         attendee_registration_menu_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.attendee_registration_menu_option)
         attendee_registration_menu_element.click()
+
+    def click_courses_scheduling_option(self):
+        scheduling_option = self.actions.element_to_be_clickable(driver=self.driver, element=self.scheduling_menu_option)
+        scheduling_option.click()
