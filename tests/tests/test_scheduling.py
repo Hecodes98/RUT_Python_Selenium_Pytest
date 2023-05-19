@@ -44,7 +44,7 @@ class TestScheduling:
     @pytest.mark.parametrize("username, password", [("404477902", "1qazxsw2.")])
     def test_EP4_CUR01525(self, driver, username, password):
         """
-        IMPORTANT: Los test del EP1 a EP4, EP11 estan contemplados en este test
+        IMPORTANT: Los test del EP1 a EP4, EP11, EP15 estan contemplados en este test
 
         Validar que se muestren los campos que trae por defecto la "Hora inicio" y la "Hora fin" 
         de la franja horaria seleccionada en el calendario, son campos no editables.

@@ -12,3 +12,12 @@ class Actions:
             )
         except TimeoutException:
             raise Exception(f"El elemento: {element}, no es clickeable después de {TIME_SECONDS_UNIT}")
+    
+    def presence_of_all_elements_located(self, driver, element):
+        try:
+            return WebDriverWait(driver, TIME_SECONDS_UNIT).until(
+                EC.presence_of_all_elements_located(element)
+            )
+        except TimeoutException:
+            raise Exception(f"Los elementos: {element}, no son localizables en la página luego de {TIME_SECONDS_UNIT}")
+    
