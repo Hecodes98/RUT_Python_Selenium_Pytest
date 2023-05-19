@@ -13,6 +13,7 @@ class Actions:
         except TimeoutException:
             raise Exception(f"El elemento: {element}, no es clickeable después de {TIME_SECONDS_UNIT}")
     
+<<<<<<< HEAD
     def presence_of_all_elements_located(self, driver, element):
         try:
             return WebDriverWait(driver, TIME_SECONDS_UNIT).until(
@@ -21,3 +22,23 @@ class Actions:
         except TimeoutException:
             raise Exception(f"Los elementos: {element}, no son localizables en la página luego de {TIME_SECONDS_UNIT}")
     
+=======
+    def get_random_element_from_a_list_of_elemenets (self, driver, element):
+        try:
+            elements = WebDriverWait(driver, TIME_SECONDS_UNIT).until(
+                EC.presence_of_all_elements_located(element)
+            )
+            return elements[0]
+        except TimeoutException:
+            raise Exception(f"No hay elemenetos: {element}, después de {TIME_SECONDS_UNIT}")
+    
+    def get_a_list_of_elemenets (self, driver, element):
+        try:
+            elements = WebDriverWait(driver, TIME_SECONDS_UNIT).until(
+                EC.presence_of_all_elements_located(element)
+            )
+            return elements
+        except TimeoutException:
+            raise Exception(f"No hay elemenetos: {element}, después de {TIME_SECONDS_UNIT}")
+    
+>>>>>>> 1e06bb2d134eaf1f772cfea721b9555c7534f202
