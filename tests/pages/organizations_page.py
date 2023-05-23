@@ -38,6 +38,7 @@ class OrganizationsPage:
 
         organization_CEA_type_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.organization_CEA_type)
         organization_CEA_type_element.click()
+        time.sleep(5)
 
     def click_document_type_and_select_cc(self):
         # Esperar a que el botón de cierre de sesión esté presente y sea visible en la página

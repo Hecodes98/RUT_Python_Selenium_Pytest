@@ -5,9 +5,9 @@ from config import TIME_SECONDS_UNIT
 
 
 class Actions:
-    def element_to_be_clickable(self, driver, element):
+    def element_to_be_clickable(self, driver, element, time=TIME_SECONDS_UNIT):
         try:
-            return WebDriverWait(driver, TIME_SECONDS_UNIT).until(
+            return WebDriverWait(driver, time).until(
                 EC.element_to_be_clickable(element)
             )
         except TimeoutException:

@@ -12,7 +12,7 @@ class SchedulingPage:
         self.actions = Actions()
         self.driver = driver
         self.room_select_input = (By.XPATH, "//mat-select[@id='mat-select-0']")
-        self.room_one_option = (By.XPATH, "//span[contains(text(),'Aula 1')]")
+        self.room_one_option = (By.CSS_SELECTOR, "span.mat-option-text")
         self.instructor_not_active = (By.XPATH, "//span[contains(text(),'YPJQ RJGOEC DJOREQ HJGUVQST')]")
         self.day_option_button = (By.XPATH, "//button[contains(text(),'Día')]")
         self.agenda = (By.XPATH, "//button[contains(text(),'Agenda')]")
@@ -37,8 +37,8 @@ class SchedulingPage:
         select_element.click()
     
     def click_room_one_option(self):
-        room_one_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.room_one_option)
-        room_one_element.click()
+        room_one_elements = self.actions.presence_of_all_elements_located(driver=self.driver, element=self.room_one_option)
+        room_one_elements[0].click()
 
     def click_instructor_not_active_option(self):
         instructor_not_active_element = self.actions.element_to_be_clickable(driver=self.driver, element=self.instructor_not_active)

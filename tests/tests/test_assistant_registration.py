@@ -1,5 +1,6 @@
 from Utils.page_factory import PageFactory
-from config import BASE_URL
+from Utils.save_screenshots import SaveScreenshots
+from config import BASE_URL, ASSISTANT_BASE
 from pytest_check import check
 from assertpy import assert_that
 import pytest
@@ -35,7 +36,7 @@ class TestAssistantRegistration:
         self.base_test(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("- Número Comparendo es obligatorio") 
-    
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP1_CUR01505")
         time.sleep(5)  
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "12345678901234567890")])
@@ -48,7 +49,7 @@ class TestAssistantRegistration:
         self.base_test(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error no se muestre").is_equal_to("There's no error message") 
-    
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP2_CUR01505")
         time.sleep(5)  
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "12345678901234567890")])
@@ -61,7 +62,7 @@ class TestAssistantRegistration:
         self.base_test(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error no se muestre").is_equal_to("There's no error message") 
-    
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP3_CUR01505")
         time.sleep(5)
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "12345678901234567890")])
@@ -74,7 +75,7 @@ class TestAssistantRegistration:
         self.base_test(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error no se muestre").is_equal_to("There's no error message") 
-    
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP4_CUR01505")
         time.sleep(5)  
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "12345678901234567890")])
@@ -87,7 +88,7 @@ class TestAssistantRegistration:
         self.base_test(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_error_message()).described_as("Validar que el mensaje de error no se muestre").is_equal_to("There's no error message") 
-    
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP5_CUR01505")
         time.sleep(5)  
     
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "17345678901254267690")])
@@ -100,7 +101,7 @@ class TestAssistantRegistration:
         self.base_test(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_infraction_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("- Infracción es obligatorio") 
-
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP7_CUR01505")
         time.sleep(5)
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "17345678901254267690")])
@@ -113,7 +114,7 @@ class TestAssistantRegistration:
         self.base_test(driver, username, password, document_number, ticket_number ,assistant_registration_page)
         with check:
             assert_that(assistant_registration_page.verify_infraction_error_message()).described_as("Validar que el mensaje de error se muestre sin agregar datos").is_equal_to("- Infracción es obligatorio") 
-
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP8_CUR01505")
         time.sleep(5)
 
     @pytest.mark.parametrize("username, password, document_number, ticket_number", [("404477901", "1qazxsw2.","12345678", "17345678901254267690")])
@@ -135,6 +136,7 @@ class TestAssistantRegistration:
         assistant_registration_page.click_transit_authority_input()
         assistant_registration_page.click_transit_authority_input_option_1()
         assistant_registration_page.click_modal_button_infraction_registration()
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP9_CUR01505")
         time.sleep(5)
 
     """@pytest.mark.EP10_CUR01505 no se especifica el test
@@ -167,6 +169,7 @@ class TestAssistantRegistration:
         time.sleep(5) #Botón buscar numero de comparendo, cuenta con un retraso propio de la página web, 
         #por eso se usa time.sleep(5) para este caso en especial, al quitar este time.sleep retorna error, que sería el comportamiento esperado
         assistant_registration_page.click_search_ticket_number_button()
+        SaveScreenshots.save_screenshot(driver, ASSISTANT_BASE, "EP11_CUR01505")
         time.sleep(5)
 
 

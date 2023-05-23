@@ -1,4 +1,5 @@
 from Utils.page_factory import PageFactory
+from pytest_html_reporter import attach
 from Utils.save_screenshots import SaveScreenshots
 from config import BASE_URL, ORGANIZATIONS_BASE
 from pytest_check import check
@@ -24,8 +25,8 @@ class TestOrganization:
         home_page.click_search_information_option()
         home_page.click_organizations_option()
     
-    @pytest.mark.parametrize("username, password", [("404477905", "1qazxsw2.")])
     @pytest.mark.EP1_CUR01506
+    @pytest.mark.parametrize("username, password", [("404477905", "1qazxsw2.")])
     def test_organizations_validate_parametrized_date(self,driver, username, password):
         """
         Ingresar con actor "Funcionario MT o Superintendencia de Transporte" para consultar 
@@ -38,7 +39,7 @@ class TestOrganization:
         with check:
             assert_that(organizations_page.get_today_day_input()).described_as("Validar que la fecha que se muestre sea igual a la fecha de hoy menos los días parametrizados").is_not_none() 
         SaveScreenshots.save_screenshot(driver, ORGANIZATIONS_BASE, "EP1_CUR01506")
-        time.sleep(5)  
+        time.sleep(5)
 
     @pytest.mark.parametrize("username, password", [("404477905", "1qazxsw2.")])
     @pytest.mark.EP2_CUR01506
@@ -54,6 +55,7 @@ class TestOrganization:
         organizations_page.click_document_type_and_select_cc()
         organizations_page.send_document_number('1088035775')
         organizations_page.click_search_button()
+        SaveScreenshots.save_screenshot(driver, ORGANIZATIONS_BASE, "EP2_CUR01506")
         time.sleep(5)  
     
     @pytest.mark.parametrize("username, password, document_number", [("404477905", "1qazxsw2.", "900739999")])
@@ -70,6 +72,7 @@ class TestOrganization:
         organizations_page.click_document_type_and_select_nit()
         organizations_page.send_document_number(document_number)
         organizations_page.click_search_button()
+        SaveScreenshots.save_screenshot(driver, ORGANIZATIONS_BASE, "EP3_CUR01506")
         time.sleep(5)
 
     @pytest.mark.parametrize("username, password, document_number", [("404477905", "1qazxsw2.", "900739999")])
@@ -86,6 +89,7 @@ class TestOrganization:
         organizations_page.click_document_type_and_select_nit()
         organizations_page.send_document_number(document_number)
         organizations_page.click_clean_button()
+        SaveScreenshots.save_screenshot(driver, ORGANIZATIONS_BASE, "EP8_CUR01506")
         time.sleep(5) 
 
     @pytest.mark.parametrize("username, password, document_number", [("404477905", "1qazxsw2.", "3563231")])
@@ -102,6 +106,7 @@ class TestOrganization:
         organizations_page.click_document_type_and_select_cc()
         organizations_page.send_document_number(document_number)
         organizations_page.click_search_button()
+        SaveScreenshots.save_screenshot(driver, ORGANIZATIONS_BASE, "EP10_CUR01506")
         time.sleep(5) 
 
     @pytest.mark.parametrize("username, password", [("404477901", "1qazxsw2.")])
@@ -116,6 +121,7 @@ class TestOrganization:
         organizations_page.click_document_type_and_select_cc()
         organizations_page.send_commercial_registration_number('1088035775')
         organizations_page.click_search_button()
+        SaveScreenshots.save_screenshot(driver, ORGANIZATIONS_BASE, "EP11_CUR01506")
         time.sleep(5)  
 
 
