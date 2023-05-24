@@ -6,3 +6,5 @@ DAYS_AGO = 365
 ORGANIZATIONS_BASE = "evidences/test_organizations/"
 ASSISTANT_BASE = "evidences/test_assistant_registration/"
 SEARCH_INFORMATION_BASE = "evidences/test_consult_information_infractions/"
+NEW_ROOM_CREATION_BASE = "evidences/new_room_creation/"
+SCHEDULING_BASE = "evidences/scheduling"

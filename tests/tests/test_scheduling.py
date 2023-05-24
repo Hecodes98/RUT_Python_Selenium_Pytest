@@ -1,4 +1,4 @@
-from config import BASE_URL
+from config import BASE_URL, SCHEDULING_BASE
 from Utils.page_factory import PageFactory
 from Utils.save_screenshots import SaveScreenshots
 from Utils.page_factory import PageFactory
@@ -57,7 +57,9 @@ class TestScheduling:
         scheduling_page.click_room_select_input()
         time.sleep(2)
         with check:
-            assert_that(scheduling_page.validate_order_of_rooms_list()).is_true() 
+            assert_that(scheduling_page.validate_order_of_rooms_list()).is_true()
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP2_CUR01525")
+        time.sleep(5)
 
 
     @pytest.mark.EP4_CUR01525
@@ -85,6 +87,8 @@ class TestScheduling:
         text_element = scheduling_page.validate_inputs_appears()
         with check:
             assert_that(text_element).is_equal_to("Hora Inicio") 
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP4_CUR01525")
+        time.sleep(5)
     
     @pytest.mark.EP5_CUR01525
     @pytest.mark.parametrize("username, password", [("404477902", "1qazxsw2.")])
@@ -109,6 +113,8 @@ class TestScheduling:
         time.sleep(2)
         scheduling_page.click_instruction_input_option()
         time.sleep(2)
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP5_CUR01525")
+        time.sleep(5)
 
     @pytest.mark.EP6_CUR01525
     @pytest.mark.parametrize("username, password", [("404477902", "1qazxsw2.")])
@@ -133,6 +139,8 @@ class TestScheduling:
         time.sleep(2)
         scheduling_page.click_instruction_input_option()
         time.sleep(2)
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP6_CUR01525")
+        time.sleep(5)
 
     @pytest.mark.EP8_CUR01525
     @pytest.mark.parametrize("username, password", [("404477902", "1qazxsw2.")])
@@ -161,6 +169,8 @@ class TestScheduling:
         time.sleep(2)
         with check:
             assert_that(text_element).is_equal_to("- Instructor es obligatorio") 
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP8_CUR01525")
+        
     
     @pytest.mark.EP16_CUR01525
     @pytest.mark.parametrize("username, password", [("404477902", "1qazxsw2.")])
@@ -175,6 +185,7 @@ class TestScheduling:
         scheduling_page.click_room_one_option()
         time.sleep(2)
         scheduling_page.click_event_scheduled()
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP16_CUR01525")
         time.sleep(5)
 
     @pytest.mark.EP21_CUR01525
@@ -196,6 +207,7 @@ class TestScheduling:
         scheduling_page.click_record_violation_button()
         time.sleep(2)
         scheduling_page.click_cancel_button()
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP21_CUR01525")
         time.sleep(2)
 
     @pytest.mark.EP25_CUR01525
@@ -219,6 +231,8 @@ class TestScheduling:
         text_element=scheduling_page.get_modal_error_message()
         with check:
             assert_that(text_element).is_equal_to("La fecha seleccionada es inferior a la fecha del sistema")
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP25_CUR01525")
+        
 
     @pytest.mark.EP26_CUR01525
     @pytest.mark.parametrize("username, password", [("404477902", "1qazxsw2.")])
@@ -249,6 +263,7 @@ class TestScheduling:
         text_element=scheduling_page.get_modal_error_message()
         with check:
             assert_that(text_element).is_equal_to("El horario seleccionado está fuera del horario de atención configurado en sistema") 
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP26_CUR01525")
         time.sleep(3)
 
     @pytest.mark.EP27_CUR01525
@@ -285,6 +300,7 @@ class TestScheduling:
         text_element=scheduling_page.get_modal_error_message()
         with check:
             assert_that(text_element).is_equal_to("La fecha seleccionada no corresponde con un día de atención del lugar del curso") 
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP27_CUR01525")
         time.sleep(3)
 
     @pytest.mark.EP32_CUR01525
@@ -320,6 +336,7 @@ class TestScheduling:
         text_element=scheduling_page.get_modal_error_message()
         with check:
             assert_that(text_element).is_equal_to("El instructor YPJQ RJGOEC DJOREQ HJGUVQST no se encuentra asociado al CEA ABC DE FORMACIÓN CRA 30") 
+        SaveScreenshots.save_screenshot(driver, SCHEDULING_BASE, "EP32_CUR01525")
         time.sleep(3)
     
 

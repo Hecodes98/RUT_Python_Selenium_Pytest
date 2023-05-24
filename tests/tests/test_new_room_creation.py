@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
 from Utils.page_factory import PageFactory
+from Utils.save_screenshots import SaveScreenshots
 from Utils.signature_process import SignatureProcess
-from pywinauto.application import Application
-from config import BASE_URL
+from config import BASE_URL, NEW_ROOM_CREATION_BASE
 from pytest_check import check
 from assertpy import assert_that
 import pytest
@@ -47,6 +47,7 @@ class TestNewRoomCreation:
         facility_manager = PageFactory.create_page(driver, "facility_manager")
         facility_manager.click_accept_button_for_close_error_modal()
         facility_manager.click_schedule_tab()
+        SaveScreenshots.save_screenshot(driver, NEW_ROOM_CREATION_BASE, "EP2_CUR01504")
         time.sleep(5)
     """
     @pytest.mark.EP3_CUR01504 se obvea este test case ya que es el mismo de test case 'EP2_CUR01504' cuentan con una funcionalidad igual, lo que sería reescribir codigo innecesario
@@ -70,9 +71,11 @@ class TestNewRoomCreation:
         facility_manager.click_accept_modal_button_twice()
         time.sleep(10)
         signaturate_process = SignatureProcess()
-        signaturate_process.signature_process() #TODO validate
-        time.sleep(10)
+        signaturate_process.signature_process() 
+        time.sleep(3)
         facility_manager.click_save_modal_button()
+        SaveScreenshots.save_screenshot(driver, NEW_ROOM_CREATION_BASE, "EP2_CUR01504")
+        time.sleep(5)
     
     @pytest.mark.EP5_CUR01504
     def test_fill_textboxes_and_validate_them(self, driver):
@@ -88,6 +91,7 @@ class TestNewRoomCreation:
         facility_manager.click_save_button()
         with check:
             assert_that(facility_manager.get_capacity_error_message()).described_as("Validar que el mensaje de error no se muestre").is_true() 
+        SaveScreenshots.save_screenshot(driver, NEW_ROOM_CREATION_BASE, "EP5_CUR01504")
         time.sleep(5)
     
     @pytest.mark.EP6_CUR01504
@@ -106,6 +110,8 @@ class TestNewRoomCreation:
         signaturate_process = SignatureProcess()
         signaturate_process.signature_process()
         facility_manager.click_save_modal_button()
+        SaveScreenshots.save_screenshot(driver, NEW_ROOM_CREATION_BASE, "EP6_CUR01504")
+        time.sleep(5)
 
     @pytest.mark.EP7_CUR01504
     def test_validate_unique_name(self, driver):
@@ -123,8 +129,10 @@ class TestNewRoomCreation:
         time.sleep(10)
         signaturate_process = SignatureProcess()
         signaturate_process.signature_process()
+        time.sleep(3)
         facility_manager.click_save_modal_button()
-        time.sleep(10)
+        SaveScreenshots.save_screenshot(driver, NEW_ROOM_CREATION_BASE, "EP7_CUR01504")
+        time.sleep(5)
     
     @pytest.mark.EP8_CUR01504
     def test_validate_over_quantity(self, driver):
@@ -140,7 +148,8 @@ class TestNewRoomCreation:
         signaturate_process = SignatureProcess()
         signaturate_process.signature_process()
         facility_manager.click_save_modal_button()
-        time.sleep(10)
+        SaveScreenshots.save_screenshot(driver, NEW_ROOM_CREATION_BASE, "EP8_CUR01504")
+        time.sleep(5)
 
     @pytest.mark.EP9_CUR01504
     def test_validate_overwrote_schedule(self,driver):
@@ -172,6 +181,7 @@ class TestNewRoomCreation:
         signaturate_process = SignatureProcess()
         signaturate_process.signature_process()
         facility_manager.click_save_modal_button()
+        SaveScreenshots.save_screenshot(driver, NEW_ROOM_CREATION_BASE, "EP9_CUR01504")
         time.sleep(10)
 
     """
